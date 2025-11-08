@@ -36,61 +36,180 @@
     
     
     <!-- ***** Header Area Start ***** -->
-    <header class="header-area header-sticky">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <nav class="main-nav">
-                        <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo" style="display:flex; align-items:center; gap:8px;">
-                            <img src="assets/images/Logo.jpg" alt="Logo" style="height:120px; width:120px;">
-                            <span class="logo-primary">LAL</span><em class="logo-secondary"> Auto Japan</em></a>
-                        <!-- ***** Logo End ***** -->
-                        <!-- ***** Menu Start ***** -->
-                        <ul class="nav">
-                            <li><a href="index.html" class="active">Home</a></li>
-                            <li><a href="cars.html">Cars</a></li>
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
-                              
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="about.html">About Us</a>
-                                    <a class="dropdown-item" href="blog.html">Blog</a>
-                                    <a class="dropdown-item" href="team.html">Team</a>
-                                    <a class="dropdown-item" href="testimonials.html">Client Feedback</a>
-                                    <a class="dropdown-item" href="faq.html">FAQ</a>
-                                    <a class="dropdown-item" href="terms.html">Terms</a>
-                                </div>
-                            </li>
-                            <li><a href="contact.html">Contact</a></li> 
-                        </ul>        
-                        <a class='menu-trigger'>
-                            <span>Menu</span>
-                        </a>
-                        <!-- ***** Menu End ***** -->
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!-- ***** Header Area End ***** -->
+<header class="header-area header-sticky">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <nav class="main-nav" role="navigation" aria-label="Main navigation">
+          <!-- ***** Logo Start ***** -->
+          <a href="index.html" class="logo" style="display:flex; align-items:center; gap:8px;">
+            <img src="assets/images/Logo.jpg" alt="Logo" style="height:120px; width:120px;">
+            <span class="logo-primary">LAL</span><em class="logo-secondary"> Auto Japan</em>
+          </a>
+          <!-- ***** Logo End ***** -->
 
-    <!-- ***** Main Banner Area Start ***** -->
-    <div class="main-banner" id="top">
-        <video autoplay muted loop id="bg-video">
-            <source src="assets/images/video.mp4" type="video/mp4" />
-        </video>
+          <!-- menu trigger (visible on small screens) -->
+          <a class="menu-trigger" aria-controls="main-menu" aria-expanded="false" role="button" title="Toggle menu" tabindex="0" style="display:none;">
+            <span>Menu</span>
+          </a>
 
-        <div class="video-overlay header-text">
-            <div class="caption">
-                <h6>Drive Your Dream with Confidence</h6>
-                <h2>Premium <em>Japanese Vehicles</em> — Directly Imported for You!</h2>
-                <div class="main-button">
-                    <a href="contact.html">Contact Us</a>
-                </div>
-            </div>
-        </div>
+          <!-- ***** Menu Start ***** -->
+          <ul class="nav" id="main-menu">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="cars.html">Cars</a></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
+              <div class="dropdown-menu" aria-label="About submenu">
+                <a class="dropdown-item" href="about.html">About Us</a>
+                <a class="dropdown-item" href="blog.html">Blog</a>
+                <a class="dropdown-item" href="team.html">Team</a>
+                <a class="dropdown-item" href="testimonials.html">Client Feedback</a>
+                <a class="dropdown-item" href="faq.html">FAQ</a>
+                <a class="dropdown-item" href="terms.html">Terms</a>
+              </div>
+            </li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+          <!-- ***** Menu End ***** -->
+        </nav>
+      </div>
     </div>
+  </div>
+</header>
+<!-- ***** Header Area End ***** -->
+
+<!-- ***** Main Banner Area Start ***** -->
+<div class="main-banner" id="top" style="position:relative; overflow:hidden;">
+  <video autoplay muted loop id="bg-video" playsinline>
+    <source src="assets/images/video.mp4" type="video/mp4" />
+  </video>
+
+  <div class="video-overlay header-text" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
+    <div class="caption text-center" style="padding:28px;">
+      <h6 style="margin-bottom:6px;">Drive Your Dream with Confidence</h6>
+      <h2 style="margin-bottom:12px;">Premium <em>Japanese Vehicles</em> — Directly Imported for You!</h2>
+      <div class="main-button">
+        <a href="contact.html">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ***** Main Banner Area End ***** -->
+
+<!-- Responsive tweaks for header / banner -->
+<style>
+  /* make video responsive and limit height */
+  #bg-video {
+    width: 100%;
+    height: auto;
+    max-height: 520px;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* overlay readability */
+  .video-overlay {
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  }
+
+  /* default nav: horizontal */
+  .main-nav { position: relative; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+  .main-nav .nav { display:flex; gap:12px; margin:0; padding:0; list-style:none; align-items:center; }
+  .main-nav .nav li { position:relative; }
+  .main-nav .nav a { display:block; padding:10px 8px; color:inherit; text-decoration:none; }
+
+  /* hide the pre-existing .menu-trigger on large screens */
+  .menu-trigger { display:none; align-items:center; justify-content:center; gap:6px; cursor:pointer; }
+
+  /* Responsive (small screens) */
+  @media (max-width: 991.98px) {
+    /* show hamburger */
+    .menu-trigger { display:flex; padding:8px 12px; background:transparent; border-radius:6px; font-weight:600; }
+
+    /* collapse nav initially */
+    .main-nav .nav { display:none; position:absolute; top:100%; right:0; left:0; background:#fff; flex-direction:column; padding:12px; box-shadow:0 6px 18px rgba(0,0,0,0.08); z-index:9999; border-top:1px solid rgba(0,0,0,0.05); }
+
+    /* full width links for easier tapping */
+    .main-nav .nav a { padding:12px 14px; border-bottom:1px solid rgba(0,0,0,0.04); }
+
+    /* dropdown inside collapsed menu: keep as normal links (you likely don't want nested menus on phones) */
+    .main-nav .dropdown .dropdown-menu { position:static; box-shadow:none; border:none; padding:0; background:transparent; }
+  }
+
+  /* On very small screens hide heavy video and use background image (to save bandwidth) */
+  @media (max-width: 480px) {
+    #bg-video { display:none; }
+    .main-banner { background: url('assets/images/banner-image-1-1920x500.jpg') center/cover no-repeat; min-height:220px; }
+    .video-overlay { padding:18px; }
+    .video-overlay .caption h2 { font-size:1.1rem; }
+    .video-overlay .caption h6 { font-size:0.85rem; }
+    .video-overlay .main-button a { display:block; width:100%; padding:10px 14px; text-align:center; }
+    .logo img { height:64px !important; width:64px !important; }
+  }
+</style>
+
+<!-- Small JS to toggle the mobile menu (keeps your .menu-trigger) -->
+<script>
+  (function(){
+    const trigger = document.querySelector('.menu-trigger');
+    const menu = document.getElementById('main-menu');
+
+    if (!trigger || !menu) return;
+
+    function setAria(open) {
+      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+
+    // toggle on click
+    trigger.addEventListener('click', function(e){
+      const isOpen = menu.style.display === '' || menu.style.display === 'block';
+      if (isOpen) {
+        menu.style.display = 'none';
+        setAria(false);
+      } else {
+        menu.style.display = 'block';
+        setAria(true);
+      }
+    });
+
+    // allow keyboard toggle (Enter/Space)
+    trigger.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        trigger.click();
+      }
+    });
+
+    // hide menu when clicking outside (mobile)
+    document.addEventListener('click', function(e){
+      const target = e.target;
+      if (window.innerWidth <= 992 && menu.style.display === 'block') {
+        if (!menu.contains(target) && !trigger.contains(target)) {
+          menu.style.display = 'none';
+          setAria(false);
+        }
+      }
+    });
+
+    // ensure menu visibility resets on resize
+    window.addEventListener('resize', function(){
+      if (window.innerWidth > 991.98) {
+        menu.style.display = ''; // use default (visible)
+        setAria(false);
+      } else {
+        menu.style.display = 'none';
+      }
+    });
+
+    // initial state for small screens
+    if (window.innerWidth <= 991.98) {
+      menu.style.display = 'none';
+      setAria(false);
+    }
+  })();
+</script>
+
     <!-- ***** Main Banner Area End ***** -->
 
    <!-- ***** Cars Starts ***** -->

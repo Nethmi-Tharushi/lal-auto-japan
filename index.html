@@ -76,10 +76,20 @@
     <!-- ***** Header Area End ***** -->
 
     <!-- ***** Main Banner Area Start ***** -->
-    <div class="main-banner" id="top">
-        <video autoplay muted loop id="bg-video">
-            <source src="assets/images/video.mp4" type="video/mp4" />
-        </video>
+    <div class="main-banner" id="top" style="position:relative; overflow:hidden;">
+        <video id="bg-video"
+         autoplay
+         muted
+         playsinline
+         loop
+         preload="auto"
+         poster="assets/images/banner-image-1-1920x500.jpg"
+         style="width:100%; height:auto; max-height:520px; object-fit:cover; display:block;">
+    <source src="assets/images/video.mp4" type="video/mp4" />
+    <!-- optional webm source if you have it:
+    <source src="assets/images/video.webm" type="video/webm" />
+    -->
+  </video>
 
         <div class="video-overlay header-text">
             <div class="caption">
@@ -432,6 +442,99 @@
     
     <!-- Global Init -->
     <script src="assets/js/custom.js"></script>
+
+    <!-- Mobile video & header fixes -->
+<style>
+  /* keep video responsive and use poster on small screens if needed */
+  #bg-video { width:100%; height:auto; max-height:520px; object-fit:cover; display:block; }
+
+  /* On narrow phones hide the video element (we fall back to CSS background) */
+  @media (max-width:480px) {
+    #bg-video { display:none !important; } /* many phones block autoplay; use poster/bg-image instead */
+    .main-banner { background: url('assets/images/banner-image-1-1920x500.jpg') center/cover no-repeat; min-height:220px; }
+    .logo img { height:64px !important; width:64px !important; }
+    .video-overlay .caption h2 { font-size:1.1rem; }
+    .video-overlay .caption h6 { font-size:0.85rem; }
+    .video-overlay .main-button a { display:block; width:100%; padding:10px 14px; text-align:center; }
+  }
+
+  /* ensure collapsed nav is full width on mobile */
+  @media (max-width: 991.98px) {
+    .main-nav .nav { position: absolute; right: 0; left: 0; top: 100%; background: #fff; display: none; flex-direction: column; z-index: 9999; box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+    .main-nav .nav a { padding: 12px 16px; }
+    .menu-trigger { display:flex; cursor:pointer; }
+    /* make dropdown menu visible when we add .open-on-mobile class via JS */
+    .main-nav .nav .dropdown .dropdown-menu { display: none; padding: 0; border: none; box-shadow: none; position: static; }
+    .main-nav .nav .dropdown.open-on-mobile .dropdown-menu { display: block; }
+  }
+</style>
+
+<script>
+  (function() {
+    // 1) menu-trigger toggle (if your .menu-trigger exists)
+    const trigger = document.querySelector('.menu-trigger');
+    const mainMenu = document.querySelector('.main-nav .nav');
+
+    if (trigger && mainMenu) {
+      trigger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const visible = window.getComputedStyle(mainMenu).display !== 'none';
+        mainMenu.style.display = visible ? 'none' : 'flex';
+        trigger.setAttribute('aria-expanded', visible ? 'false' : 'true');
+      });
+
+      // close when clicking outside on mobile
+      document.addEventListener('click', function(ev) {
+        if (window.innerWidth <= 992 && mainMenu && mainMenu.style.display === 'flex') {
+          if (!mainMenu.contains(ev.target) && !trigger.contains(ev.target)) {
+            mainMenu.style.display = 'none';
+            trigger.setAttribute('aria-expanded','false');
+          }
+        }
+      });
+
+      // ensure correct state on resize
+      window.addEventListener('resize', function() {
+        if (window.innerWidth > 992) {
+          mainMenu.style.display = ''; // let desktop CSS show the menu
+          trigger.setAttribute('aria-expanded','false');
+        } else {
+          mainMenu.style.display = 'none';
+        }
+      });
+    }
+
+    // 2) mobile-friendly dropdown toggle for "About"
+    document.querySelectorAll('.main-nav .dropdown .dropdown-toggle').forEach(function(el){
+      el.addEventListener('click', function(e){
+        if (window.innerWidth <= 992) {
+          e.preventDefault(); // prevent following href if any
+          const parent = el.closest('.dropdown');
+          parent.classList.toggle('open-on-mobile'); // CSS shows/hides .dropdown-menu
+        }
+      });
+    });
+
+    // 3) attempt to play video; if autoplay is blocked hide it and fall back to poster
+    const video = document.getElementById('bg-video');
+    if (video) {
+      // try to play — some browsers block autoplay even when muted
+      video.play().then(() => {
+        // autoplay worked
+        // leave video visible
+      }).catch(() => {
+        // autoplay blocked — hide video element and use poster/background instead
+        video.style.display = 'none';
+        document.querySelectorAll('.main-banner').forEach(function(b){
+          b.style.backgroundImage = "url('assets/images/banner-image-1-1920x500.jpg')";
+          b.style.backgroundSize = "cover";
+          b.style.backgroundPosition = "center";
+          b.style.minHeight = "220px";
+        });
+      });
+    }
+  })();
+</script>
 
   </body>
 </html>

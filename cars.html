@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Lal Auto Japan - Trusted car dealership in Sri Lanka. Directly imported Japanese vehicles, used and brand-new cars. Contact us for great deals!">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+
+    <title>LAL Auto Traders</title>
+
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    </head>
+    
+    <body>
+    
+    <!-- ***** Preloader Start ***** -->
+    <div id="js-preloader" class="js-preloader">
+      <div class="preloader-inner">
+        <span class="dot"></span>
+        <div class="dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+    <!-- ***** Preloader End ***** -->
+    
+    
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="index.html" class="logo" style="display:flex; align-items:center; gap:8px;">
+                            <img src="assets/images/Logo.jpg" alt="Logo" style="height:120px; width:120px;">
+                            <span class="logo-primary">LAL</span><em class="logo-secondary"> Auto Japan</em></a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="cars.html" class="active">Cars</a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
+                              
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="about.html">About Us</a>
+                                    <a class="dropdown-item" href="blog.html">Blog</a>
+                                    <a class="dropdown-item" href="team.html">Team</a>
+                                    <a class="dropdown-item" href="testimonials.html">Client Feedback</a>
+                                    <a class="dropdown-item" href="faq.html">FAQ</a>
+                                    <a class="dropdown-item" href="terms.html">Terms</a>
+                                </div>
+                            </li>
+                            <li><a href="contact.html">Contact</a></li> 
+                        </ul>        
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ***** Call to Action Start ***** -->
+    <section class="section section-bg" id="call-to-action" style="background-image: url(assets/images/banner-image-1-1920x500.jpg)">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+                    <div class="cta-content">
+                        <br>
+                        <br>
+                        <h2>Our <em>Cars</em></h2>
+                        <p>Browse hand-picked, inspected vehicles — directly imported from Japan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Call to Action End ***** -->
+
+    <!-- ***** Fleet Starts ***** -->
+    <section class="section" id="trainers">
+        <div class="container">
+            <br>
+            <br>
+            <!-- ==== Simple 3-filter area (replace your long filters block) ==== -->
+<div class="contact-form">
+  <form id="filterForm" action="#" onsubmit="return false;">
+    <div class="row align-items-end">
+      <!-- Condition -->
+      <div class="col-lg-4 col-md-6 mb-3">
+        <div class="form-group">
+          <label for="filterCondition">Condition</label>
+          <select id="filterCondition" class="form-control">
+            <option value="all">All</option>
+            <option value="new">New</option>
+            <option value="used">Used</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Make -->
+      <div class="col-lg-4 col-md-6 mb-3">
+        <div class="form-group">
+          <label for="filterMake">Make</label>
+          <select id="filterMake" class="form-control">
+            <option value="all">All</option>
+            <option value="honda">Honda</option>
+            <option value="suzuki">Suzuki</option>
+            <option value="toyota">Toyota</option>
+            <!-- add additional makes you use -->
+          </select>
+        </div>
+      </div>
+
+      <!-- Max Price -->
+      <div class="col-lg-4 col-md-6 mb-3">
+        <div class="form-group">
+          <label for="filterPrice">Max Price (LKR)</label>
+          <select id="filterPrice" class="form-control">
+            <option value="all">Any</option>
+            <option value="8000000">Up to 8,000,000</option>
+            <option value="12000000">Up to 12,000,000</option>
+            <option value="15000000">Up to 15,000,000</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="col-12 text-right">
+        <button id="clearFilters" class="btn btn-light" type="button">Clear</button>
+        <button id="applyFilters" class="btn btn-primary" type="button">Apply</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Add this script once on the page (preferably before </body>) -->
+<script>
+(function () {
+  const condEl = document.getElementById('filterCondition');
+  const makeEl = document.getElementById('filterMake');
+  const priceEl = document.getElementById('filterPrice');
+  const applyBtn = document.getElementById('applyFilters');
+  const clearBtn = document.getElementById('clearFilters');
+  const cardSelector = '.col-lg-4';
+
+  // --- helpers ---
+  function parsePriceFromText(txt) {
+    const digits = (txt || '').replace(/[^0-9]/g, '');
+    return digits ? parseInt(digits, 10) : 0;
+  }
+
+  function inferMake(card) {
+    return (card.getAttribute('data-make') ||
+      (card.querySelector('img')?.alt.split(/\s+/)[0]) ||
+      (card.querySelector('h4')?.textContent.trim().split(/\s+/)[0]) ||
+      '').toLowerCase();
+  }
+
+  function inferCondition(card) {
+    const dc = card.getAttribute('data-condition');
+    if (dc) return dc.toLowerCase();
+    return card.textContent.toLowerCase().includes('brand new') ? 'new' : 'used';
+  }
+
+  function inferPrice(card) {
+    const dp = card.getAttribute('data-price');
+    if (dp && !isNaN(dp)) return parseInt(dp, 10);
+    const priceNode = card.querySelector('.price, .price-tag, .down-content .price');
+    if (priceNode) {
+      const txt = priceNode.textContent;
+      const nums = txt.match(/[0-9,]+/g);
+      if (nums && nums.length) return parsePriceFromText(nums[0]);
+    }
+    return 0;
+  }
+
+  function applyFilters() {
+    const cond = condEl.value;
+    const make = makeEl.value;
+    const price = priceEl.value;
+    const cards = document.querySelectorAll(cardSelector);
+
+    // store filters to persist across pages
+    localStorage.setItem('lal_filters', JSON.stringify({ cond, make, price }));
+
+    cards.forEach(card => {
+      const cmake = inferMake(card);
+      const ccond = inferCondition(card);
+      const cprice = inferPrice(card);
+
+      let show = true;
+      if (cond !== 'all' && ccond !== cond) show = false;
+      if (make !== 'all' && cmake !== make) show = false;
+      if (price !== 'all' && !(cprice > 0 && cprice <= parseInt(price, 10))) show = false;
+
+      card.style.display = show ? '' : 'none';
+    });
+  }
+
+  // restore saved filters if available
+  const saved = localStorage.getItem('lal_filters');
+  if (saved) {
+    try {
+      const { cond, make, price } = JSON.parse(saved);
+      if (condEl) condEl.value = cond || 'all';
+      if (makeEl) makeEl.value = make || 'all';
+      if (priceEl) priceEl.value = price || 'all';
+    } catch (e) {}
+  }
+
+  // bind events
+  applyBtn.addEventListener('click', applyFilters);
+  clearBtn.addEventListener('click', () => {
+    condEl.value = 'all';
+    makeEl.value = 'all';
+    priceEl.value = 'all';
+    localStorage.removeItem('lal_filters');
+    applyFilters();
+  });
+  [condEl, makeEl, priceEl].forEach(el => el.addEventListener('change', applyFilters));
+
+  // initial run
+  applyFilters();
+})();
+</script>
+
+
+<br>    
+<br>
+
+            <div class="row">
+                <div class="col-lg-4" data-make="honda" data-condition="new" data-price="12450000">
+                    <div class="trainer-item">
+                        <div class="image-thumb">
+                            <img src="assets/images/product-1-1.jpg" alt="Toyota Axio 2016 - silver exterior">
+                        </div>
+                        <div class="down-content">
+                            <span class="price">
+                                <del>Rs. 12,800,000</del> &nbsp; Rs. 12,450,000
+                            </span>
+
+                            <h4>Honda Vezel Hybrid 2023–2025 — X, Z, Z Play (Full Option with Sunroof)
+                                <span class="import-tag">Imported from Japan</span>
+                            </h4>
+
+                            <p>
+                                <i class="fa fa-dashboard"></i> Brand New &nbsp;&nbsp;&nbsp;
+                                <i class="fa fa-cube"></i> 1500 cc &nbsp;&nbsp;&nbsp;
+                                <i class="fa fa-bolt"></i> Hybrid &nbsp;&nbsp;&nbsp;
+                                <i class="fa fa-cog"></i> Automatic
+                            </p>
+
+                            <p style="color:#555; margin-top:6px;">
+                                Available grades: <strong>X Hunter, X, Z, Z Play</strong> — all with luxury interiors and advanced safety features.
+                            </p>
+
+                            <ul class="social-icons">
+                                <li><a href="car-details-1.html">+ View Car</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-make="toyota" data-condition="new" data-price="9150000">
+                    <div class="trainer-item">
+                        <div class="image-thumb">
+                            <img src="assets/images/product-7-1.jpg" alt="Toyota Yaris 2023–2025 - white exterior">
+                        </div>
+                        <div class="down-content">
+                            <span class="price">
+                                <del>Rs. 9,500,000</del> &nbsp; Rs. 9,150,000
+                            </span>
+
+                            <h4>Toyota Yaris 2023–2025 — X, G
+                                <span class="import-tag">Imported from Japan</span>
+                            </h4>
+
+                            <p>
+                                <i class="fa fa-dashboard"></i> Brand New &nbsp;&nbsp;&nbsp;
+                                <i class="fa fa-cube"></i> 1000 cc &nbsp;&nbsp;&nbsp;
+                                <i class="fa fa-bolt"></i> Petrol / Hybrid &nbsp;&nbsp;&nbsp;
+                                <i class="fa fa-cog"></i> Automatic / CVT
+                            </p>
+
+                            <p style="color:#555; margin-top:6px;">
+                                Available grades: <strong>X, G</strong> — compact, efficient hatchback with modern safety features and great fuel economy for city & highway driving.
+                            </p>
+
+                            <ul class="social-icons">
+                                <li><a href="car-details-7.html">+ View Car</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-make="toyota" data-condition="new" data-price="10550000">
+                    <div class="trainer-item">
+                        <div class="image-thumb">
+                            <img src="assets/images/product-3-1.jpg" alt="Toyota Raize 2023–2025 - white exterior">
+                        </div>
+                        <div class="down-content">
+                            <span class="price">
+                                <del>Rs. 10,900,000</del> &nbsp; Rs. 10,550,000
+                            </span>
+
+                            <h4>Toyota Raize 2023–2025 — X, G, Z
+                                <span class="import-tag">Imported from Japan</span>
+                            </h4>
+
+                            <p>
+                                <i class="fa fa-dashboard"></i> Brand New &nbsp;&nbsp;&nbsp;
+                                <i class="fa fa-cube"></i> 1000 cc / 1200 cc &nbsp;&nbsp;&nbsp;
+                                <i class="fa fa-bolt"></i> Petrol / Hybrid &nbsp;&nbsp;&nbsp;
+                                <i class="fa fa-cog"></i> Automatic (4WD / 2WD)
+                            </p>
+
+                            <p style="color:#555; margin-top:6px;">
+                               Available grades: <strong>X, G, Z</strong> — stylish compact SUV with advanced safety features, hybrid efficiency, and four-wheel drive options.
+                            </p>
+
+                            <ul class="social-icons">
+                                <li><a href="car-details-3.html">+ View Car</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4" data-make="suzuki" data-condition="new" data-price="5950000">
+                    <div class="trainer-item">
+                        <div class="image-thumb">
+                            <img src="assets/images/product-4-1.jpg" alt="Suzuki Alto 2023–2025 - white exterior">
+                        </div>
+                        <div class="down-content">
+                            <span class="price">
+                                <del>Rs. 6,250,000</del> &nbsp; Rs. 5,950,000
+                            </span>
+
+                        <h4>Suzuki Alto 2023–2025 — A, L, Hybrid S, Hybrid X
+                            <span class="import-tag">Imported from Japan</span>
+                        </h4>
+
+                        <p>
+                            <i class="fa fa-dashboard"></i> Brand New &nbsp;&nbsp;&nbsp;
+                            <i class="fa fa-cube"></i> 660 cc &nbsp;&nbsp;&nbsp;
+                            <i class="fa fa-bolt"></i> Petrol / Hybrid &nbsp;&nbsp;&nbsp;
+                            <i class="fa fa-cog"></i> Automatic (2WD)
+                        </p>
+
+                        <p style="color:#555; margin-top:6px;">
+                            Available grades: <strong>A, L, Hybrid S, Hybrid X</strong> — compact city car offering excellent fuel efficiency, modern design, and advanced safety features.
+                        </p>
+
+                        <ul class="social-icons">
+                            <li><a href="car-details-4.html">+ View Car</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                </div>
+                <div class="col-lg-4" data-make="suzuki" data-condition="new" data-price="8550000">
+                    <div class="trainer-item">
+                        <div class="image-thumb">
+                            <img src="assets/images/product-5-1.jpg" alt="Suzuki Swift 2023–2025 - red exterior">
+                        </div>
+                        <div class="down-content">
+                            <span class="price">
+                                <del>Rs. 8,900,000</del> &nbsp; Rs. 8,550,000
+                            </span>
+
+                            <h4>Suzuki Swift 2023–2025 — XS, Hybrid MZ, Hybrid MX
+                                <span class="import-tag">Imported from Japan</span>
+                            </h4>
+
+                            <p>
+                                <i class="fa fa-dashboard"></i> Brand New &nbsp;&nbsp;&nbsp;
+                                <i class="fa fa-cube"></i> 1200 cc &nbsp;&nbsp;&nbsp;
+                                <i class="fa fa-bolt"></i> Petrol / Hybrid &nbsp;&nbsp;&nbsp;
+                                <i class="fa fa-cog"></i> Automatic (2WD)
+                            </p>
+
+                            <p style="color:#555; margin-top:6px;">
+                                Available grades: <strong>XS, Hybrid MZ, Hybrid MX</strong> — sporty hatchback with hybrid efficiency, refined comfort, and advanced safety systems designed for both city and highway driving.
+                            </p>
+
+                            <ul class="social-icons">
+                                <li><a href="car-details-5.html">+ View Car</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-4" data-make="suzuki" data-condition="new" data-price="5850000">
+                    <div class="trainer-item">
+                        <div class="image-thumb">
+                            <img src="assets/images/product-6-1.jpg" alt="Suzuki Wagon R 2023–2025 - brown exterior">
+                        </div>
+                        <div class="down-content">
+                            <span class="price">
+                                <del>Rs. 6,100,000</del> &nbsp; Rs. 5,850,000
+                            </span>
+
+                        <h4>Suzuki Wagon R 2023–2025 — FX Safety
+                            <span class="import-tag">Imported from Japan</span>
+                        </h4>
+
+                        <p>
+                            <i class="fa fa-dashboard"></i> Brand New &nbsp;&nbsp;&nbsp;
+                            <i class="fa fa-cube"></i> 660 cc &nbsp;&nbsp;&nbsp;
+                            <i class="fa fa-bolt"></i> Petrol &nbsp;&nbsp;&nbsp;
+                            <i class="fa fa-cog"></i> Automatic (2WD)
+                        </p>
+
+                        <p style="color:#555; margin-top:6px;">
+                            Available grade: <strong>FX Safety</strong> — a reliable and fuel-efficient kei car designed for city driving, featuring excellent visibility, spacious cabin, and advanced safety features.
+                        </p>
+
+                        <ul class="social-icons">
+                            <li><a href="car-details-6.html">+ View Car</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+            <br>
+                
+            <!-- Pagination Section -->
+<nav aria-label="Car Listings Page Navigation">
+  <ul class="pagination pagination-lg justify-content-center">
+    <!-- Previous Button (disabled on first page) -->
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1" aria-disabled="true" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+
+    <!-- Page Numbers -->
+    <li class="page-item active" aria-current="page">
+      <a class="page-link" href="cars.html">1 <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="page-item"><a class="page-link" href="cars-page-2.html">2</a></li>
+
+    <!-- Next Button -->
+    <li class="page-item">
+      <a class="page-link" href="cars-page-2.html" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+
+        </div>
+    </section>
+    <!-- ***** Fleet Ends ***** -->
+
+    
+    <!-- ***** Footer Start ***** -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="mb-2">Copyright © 2025 <strong>Lal Auto Japan</strong>. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="assets/js/jquery-2.1.0.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="assets/js/popper.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+
+    <!-- Plugins -->
+    <script src="assets/js/scrollreveal.min.js"></script>
+    <script src="assets/js/waypoints.min.js"></script>
+    <script src="assets/js/jquery.counterup.min.js"></script>
+    <script src="assets/js/imgfix.min.js"></script> 
+    <script src="assets/js/mixitup.js"></script> 
+    <script src="assets/js/accordions.js"></script>
+    
+    <!-- Global Init -->
+    <script src="assets/js/custom.js"></script>
+
+  </body>
+</html>

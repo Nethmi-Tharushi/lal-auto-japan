@@ -1341,3 +1341,148 @@ a:hover {
   background-color: #f8f9fa;
   box-shadow: none;
 }
+
+/* ---------- Dropdown item (base) ---------- */
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #232d39;           /* dark text */
+  background: transparent;
+  text-align: left;
+  white-space: nowrap;
+  border-radius: 4px;
+  transition: background-color .18s ease, color .18s ease;
+}
+
+/* Hover / focus (mouse + keyboard) */
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: rgba(237,86,59,0.08); /* subtle red tint */
+  color: #ed563b;
+  text-decoration: none;
+  outline: none;
+}
+
+/* Active / selected */
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: #ed563b;
+  color: #fff;
+}
+
+/* Disabled state */
+.dropdown-item.disabled,
+.dropdown-item[disabled] {
+  color: #aaa;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* If the dropdown uses <a> without the class, this also covers it */
+.dropdown-menu a.dropdown-item {
+  display: block;
+}
+
+/* Keep dropdown links readable inside a translucent dropdown-menu */
+.dropdown-menu,
+.background-header .dropdown-menu {
+  padding: 8px;
+  min-width: 220px;
+  border-radius: 6px;
+}
+
+/* ---------- Background-header variant (light dropdown) ---------- */
+.background-header .dropdown-menu {
+  background: rgba(250,250,250,0.95);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.background-header .dropdown-item {
+  color: #232d39;
+}
+
+.background-header .dropdown-item:hover,
+.background-header .dropdown-item:focus {
+  background: rgba(237,86,59,0.06);
+  color: #ed563b;
+}
+
+/* ---------- Visual separators / last child CTA style ---------- */
+/* If you want the last item to look like a CTA (matches earlier rules) */
+.dropdown-menu .dropdown-item.cta {
+  background: #ed563b;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 6px;
+  margin-top: 6px;
+}
+
+/* ---------- Accessibility helpers ---------- */
+/* larger focus ring for keyboard users */
+.dropdown-item:focus-visible {
+  box-shadow: 0 0 0 3px rgba(237,86,59,0.18);
+}
+
+/* ---------- Mobile adjustments ---------- */
+@media (max-width: 767px) {
+  /* Make the dropdown full-width and touch-friendly */
+  .header-area .main-nav .nav,
+  .dropdown-menu {
+    width: 100% !important;
+    left: 0;
+    right: 0;
+    margin: 0;
+    box-shadow: none;
+    border-radius: 0;
+    overflow: visible !important;
+  position: relative !important;
+  z-index: 9999 !important;
+  position: relative !important;
+  /*display: block !important;*/
+  visibility: visible !important;
+  opacity: 1 !important;
+  }
+
+  .dropdown-menu {
+    padding: 12px 10px;
+  }
+
+  .dropdown-item {
+    padding: 16px 18px;      /* larger tap target */
+    font-size: 16px;         /* easier to read on small screens */
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    background: #fff;
+  }
+
+  .dropdown-item:last-child {
+    border-bottom: none;
+  }
+
+  /* Make CTA full width with more breathing room */
+  .dropdown-menu .dropdown-item.cta {
+    padding: 14px 18px;
+    margin-top: 10px;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  /* Ensure menu items are easy to tap when nav is expanded */
+  .header-area .main-nav .nav li a,
+  .header-area .main-nav .nav li a.dropdown-item {
+    height: auto !important;
+    line-height: 1.2;
+    
+  }
+}
+
+/* Slightly larger items for tablet widths */
+@media (max-width: 992px) and (min-width: 768px) {
+  .dropdown-item {
+    padding: 13px 16px;
+    font-size: 15px;
+  }
+}

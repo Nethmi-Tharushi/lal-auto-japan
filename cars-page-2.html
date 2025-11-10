@@ -102,7 +102,7 @@
 <div class="contact-form">
   <form id="filterForm" action="#" onsubmit="return false;">
     <div class="row align-items-end">
-      <!-- Condition -->
+      <!-- Condition 
       <div class="col-lg-4 col-md-6 mb-3">
         <div class="form-group">
           <label for="filterCondition">Condition</label>
@@ -112,7 +112,7 @@
             <option value="used">Used</option>
           </select>
         </div>
-      </div>
+      </div>-->
 
       <!-- Make -->
       <div class="col-lg-4 col-md-6 mb-3">
@@ -123,6 +123,7 @@
             <option value="honda">Honda</option>
             <option value="suzuki">Suzuki</option>
             <option value="toyota">Toyota</option>
+            <option value="daihatsu">Daihatsu</option>
             <!-- add additional makes you use -->
           </select>
         </div>
@@ -135,8 +136,8 @@
           <select id="filterPrice" class="form-control">
             <option value="all">Any</option>
             <option value="8000000">Up to 8,000,000</option>
-            <option value="12000000">Up to 12,000,000</option>
             <option value="15000000">Up to 15,000,000</option>
+            <option value="20000000">Up to 20,000,000</option>
           </select>
         </div>
       </div>
@@ -153,12 +154,15 @@
 <!-- Add this script once on the page (preferably before </body>) -->
 <script>
 (function () {
-  const condEl = document.getElementById('filterCondition');
+  // If you re-enable condition later, uncomment and wire condEl:
+  // const condEl = document.getElementById('filterCondition');
   const makeEl = document.getElementById('filterMake');
   const priceEl = document.getElementById('filterPrice');
   const applyBtn = document.getElementById('applyFilters');
   const clearBtn = document.getElementById('clearFilters');
-  const cardSelector = '.col-lg-4';
+
+  // Only target actual car cards that include data-make attribute
+  const cardSelector = '.col-lg-4[data-make]';
 
   // --- helpers ---
   function parsePriceFromText(txt) {
@@ -168,15 +172,9 @@
 
   function inferMake(card) {
     return (card.getAttribute('data-make') ||
-      (card.querySelector('img')?.alt.split(/\s+/)[0]) ||
-      (card.querySelector('h4')?.textContent.trim().split(/\s+/)[0]) ||
+      (card.querySelector('img')?.alt?.split(/\s+/)[0]) ||
+      (card.querySelector('h4')?.textContent?.trim().split(/\s+/)[0]) ||
       '').toLowerCase();
-  }
-
-  function inferCondition(card) {
-    const dc = card.getAttribute('data-condition');
-    if (dc) return dc.toLowerCase();
-    return card.textContent.toLowerCase().includes('brand new') ? 'new' : 'used';
   }
 
   function inferPrice(card) {
@@ -192,21 +190,18 @@
   }
 
   function applyFilters() {
-    const cond = condEl.value;
-    const make = makeEl.value;
-    const price = priceEl.value;
+    const make = makeEl ? makeEl.value : 'all';
+    const price = priceEl ? priceEl.value : 'all';
     const cards = document.querySelectorAll(cardSelector);
 
-    // store filters to persist across pages
-    localStorage.setItem('lal_filters', JSON.stringify({ cond, make, price }));
+    // store only the filters that actually exist (no 'cond' reference)
+    localStorage.setItem('lal_filters', JSON.stringify({ make, price }));
 
     cards.forEach(card => {
       const cmake = inferMake(card);
-      const ccond = inferCondition(card);
       const cprice = inferPrice(card);
 
       let show = true;
-      if (cond !== 'all' && ccond !== cond) show = false;
       if (make !== 'all' && cmake !== make) show = false;
       if (price !== 'all' && !(cprice > 0 && cprice <= parseInt(price, 10))) show = false;
 
@@ -218,49 +213,48 @@
   const saved = localStorage.getItem('lal_filters');
   if (saved) {
     try {
-      const { cond, make, price } = JSON.parse(saved);
-      if (condEl) condEl.value = cond || 'all';
-      if (makeEl) makeEl.value = make || 'all';
-      if (priceEl) priceEl.value = price || 'all';
-    } catch (e) {}
+      const parsed = JSON.parse(saved);
+      if (parsed.make && makeEl) makeEl.value = parsed.make;
+      if (parsed.price && priceEl) priceEl.value = parsed.price;
+    } catch (e) { /* ignore invalid JSON */ }
   }
 
-  // bind events
-  applyBtn.addEventListener('click', applyFilters);
-  clearBtn.addEventListener('click', () => {
-    condEl.value = 'all';
-    makeEl.value = 'all';
-    priceEl.value = 'all';
+  // bind events (guard for missing elements)
+  if (applyBtn) applyBtn.addEventListener('click', applyFilters);
+  if (clearBtn) clearBtn.addEventListener('click', () => {
+    if (makeEl) makeEl.value = 'all';
+    if (priceEl) priceEl.value = 'all';
     localStorage.removeItem('lal_filters');
     applyFilters();
   });
-  [condEl, makeEl, priceEl].forEach(el => el.addEventListener('change', applyFilters));
+  [makeEl, priceEl].forEach(el => { if (el) el.addEventListener('change', applyFilters); });
 
   // initial run
   applyFilters();
 })();
 </script>
 
+
 <br>    
 <br>
 
             <div class="row">
-                <div class="col-lg-4" data-make="suzuki" data-condition="new" data-price="5850000">
+                <div class="col-lg-4" data-make="suzuki" data-price="7600000">
                     <div class="trainer-item">
                         <div class="image-thumb">
                             <img src="assets/images/product-8-1.jpg" alt="Suzuki Wagon R 2023–2025 - brown exterior">
                         </div>
                         <div class="down-content">
                             <span class="price">
-                                <del>Rs. 6,100,000</del> &nbsp; Rs. 5,850,000
+                                <del>Rs. 8,500,000</del> &nbsp; Rs. 7,600,000 – Rs. 8,200,000
+                                <br><small style="color:#777;">(Approx. 76–82 laks)</small>
                             </span>
-
                             <h4>Suzuki Wagon R 2023–2025 — FX-S Safety
                                 <span class="import-tag">Imported from Japan</span>
                             </h4>
 
                             <p>
-                                <i class="fa fa-dashboard"></i> Brand New &nbsp;&nbsp;&nbsp;
+                                
                                 <i class="fa fa-cube"></i> 660 cc &nbsp;&nbsp;&nbsp;
                                 <i class="fa fa-bolt"></i> Hybrid (Petrol + Mild Hybrid) &nbsp;&nbsp;&nbsp;
                                 <i class="fa fa-cog"></i> Automatic / CVT
@@ -276,14 +270,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4" data-make="suzuki" data-condition="new" data-price="6950000">
+                <div class="col-lg-4" data-make="suzuki" data-price="7000000">
                     <div class="trainer-item">
                         <div class="image-thumb">
                             <img src="assets/images/product-2-1.jpg" alt="Suzuki Every 2023–2025 - silver exterior">
                         </div>
                         <div class="down-content">
                             <span class="price">
-                                <del>Rs. 7,200,000</del> &nbsp; Rs. 6,950,000
+                                <del>Rs. 9,500,000</del> &nbsp; Rs. 7,000,000 – Rs. 9,000,000
+                                <br><small style="color:#777;">(Approx. 70–90 laks)</small>
                             </span>
 
                             <h4>Suzuki Every 2023–2025 — PA, PC, JOIN, JOIN Turbo
@@ -291,7 +286,7 @@
                             </h4>
 
                             <p>
-                                <i class="fa fa-dashboard"></i> Brand New &nbsp;&nbsp;&nbsp;
+                                
                                 <i class="fa fa-cube"></i> 660 cc &nbsp;&nbsp;&nbsp;
                                 <i class="fa fa-bolt"></i> Petrol &nbsp;&nbsp;&nbsp;
                                 <i class="fa fa-cog"></i> Automatic
@@ -307,22 +302,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4" data-make="suzuki" data-condition="new" data-price="6650000">
+                <div class="col-lg-4" data-make="suzuki" data-price="8800000">
                     <div class="trainer-item">
                         <div class="image-thumb">
                             <img src="assets/images/product-9-1.jpg" alt="Suzuki Wagon R Custom Z 2023–2025 - green exterior">
                         </div>
                         <div class="down-content">
                             <span class="price">
-                                <del>Rs. 6,950,000</del> &nbsp; Rs. 6,650,000
+                                <del>Rs. 9,800,000</del> &nbsp; Rs. 8,800,000 – Rs. 9,600,000
+                                <br><small style="color:#777;">(Approx. 62–72 laks)</small>
                             </span>
-
                         <h4>Suzuki Wagon R Custom Z 2023–2025 — Hybrid
                             <span class="import-tag">Imported from Japan</span>
                         </h4>
 
                         <p>
-                            <i class="fa fa-dashboard"></i> Brand New &nbsp;&nbsp;&nbsp;
+                            
                             <i class="fa fa-cube"></i> 660 cc &nbsp;&nbsp;&nbsp;
                             <i class="fa fa-bolt"></i> Hybrid (Petrol + Mild Hybrid) &nbsp;&nbsp;&nbsp;
                             <i class="fa fa-cog"></i> Automatic / CVT
@@ -341,14 +336,15 @@
 
                 </div>
 
-                <div class="col-lg-4" data-make="suzuki" data-condition="new" data-price="6150000">
+                <div class="col-lg-4" data-make="suzuki" data-price="8800000">
                     <div class="trainer-item">
                         <div class="image-thumb">
                             <img src="assets/images/product-10-1.jpg" alt="Suzuki Wagon R Stingray 2023–2025 - white exterior">
                         </div>
                         <div class="down-content">
                             <span class="price">
-                                <del>Rs. 6,450,000</del> &nbsp; Rs. 6,150,000
+                                <del>Rs. 10,000,000</del> &nbsp; Rs. 8,800,000 – Rs. 9,800,000
+                                <br><small style="color:#777;">(Approx. 88–98 laks)</small>
                             </span>
 
                         <h4>Suzuki Wagon R Stingray 2023–2025 — Custom Z, Hybrid
@@ -356,7 +352,7 @@
                         </h4>
 
                         <p>
-                            <i class="fa fa-dashboard"></i> Brand New &nbsp;&nbsp;&nbsp;
+                            
                             <i class="fa fa-cube"></i> 660 cc &nbsp;&nbsp;&nbsp;
                             <i class="fa fa-bolt"></i> Hybrid (Petrol + Mild Hybrid) &nbsp;&nbsp;&nbsp;
                             <i class="fa fa-cog"></i> Automatic / CVT
@@ -373,39 +369,43 @@
                 </div>
 
                 </div>
-                <!--  
-                <div class="col-lg-4">
+                  
+                <div class="col-lg-4" data-make="Daihatsu" data-price="6200000">
                     <div class="trainer-item">
                         <div class="image-thumb">
-                            <img src="assets/images/product-5-1.jpg" alt="Suzuki Swift 2023–2025 - red exterior">
+                            <img src="assets/images/product-11-1.jpg" alt="Daihatsu Mira e:S 2023–2025 - silver exterior">
                         </div>
                         <div class="down-content">
-                            <span class="price">
-                                <del>Rs. 8,900,000</del> &nbsp; Rs. 8,550,000
+                           <span class="price">
+                                <del>Rs. 7,500,000</del> &nbsp; Rs. 6,200,000 – Rs. 7,200,000
+                                <br><small style="color:#777;">(Approx. 62–72 laks)</small>
                             </span>
 
-                            <h4>Suzuki Swift 2023–2025 — XS, Hybrid MZ, Hybrid MX
+
+                            <h4>Daihatsu Mira e:S 2023–2025 — L, X, G
                                 <span class="import-tag">Imported from Japan</span>
                             </h4>
 
                             <p>
-                                <i class="fa fa-dashboard"></i> Brand New &nbsp;&nbsp;&nbsp;
-                                <i class="fa fa-cube"></i> 1200 cc &nbsp;&nbsp;&nbsp;
-                                <i class="fa fa-bolt"></i> Petrol / Hybrid &nbsp;&nbsp;&nbsp;
+                                
+                                <i class="fa fa-cube"></i> 660 cc &nbsp;&nbsp;&nbsp;
+                                <i class="fa fa-bolt"></i> Petrol &nbsp;&nbsp;&nbsp;
                                 <i class="fa fa-cog"></i> Automatic (2WD)
                             </p>
 
                             <p style="color:#555; margin-top:6px;">
-                                Available grades: <strong>XS, Hybrid MZ, Hybrid MX</strong> — sporty hatchback with hybrid efficiency, refined comfort, and advanced safety systems designed for both city and highway driving.
+                                Compact, fuel-efficient kei car ideal for city driving — available in <strong>X</strong> and <strong>G</strong> grades. 
+                                Features eco idle technology, smart assist, and exceptional reliability from Daihatsu Japan.
                             </p>
 
                             <ul class="social-icons">
-                                <li><a href="car-details-5.html">+ View Car</a></li>
+                                <li><a href="car-details-11.html">+ View Car</a></li>
                             </ul>
                         </div>
                     </div>
 
                 </div>
+                <!--
                 <div class="col-lg-4">
                     <div class="trainer-item">
                         <div class="image-thumb">
